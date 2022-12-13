@@ -16,13 +16,13 @@
 
 <body>
 
-    <nav class="navbar bg-light">
+    <nav class="navbar bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand">Original:</a>
+            <a class="navbar-brand text-white">Original:</a>
             <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Number of Cards" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Draw</button>
-                <button class="btn btn-outline-success" type="submit">Sort</button>
+                <input type="text" id="numberofcards" name="numberofcards" placeholder="Number of Cards">
+                <button id="draw" class="btn btn-outline-success" type="submit">Draw</button>
+                <button id="sort" class="btn btn-outline-success" type="submit">Sort</button>
             </form>
         </div>
     </nav>
@@ -38,6 +38,9 @@
             </div>
         </div>
     </div>
+    <div class="mx-3"><h5>Bubble Sort Log:</h5></div>
+    <div class="stepbystepbubblesort"></div>
+
     
     
 
