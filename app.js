@@ -3,7 +3,57 @@ window.onload = () => {
     console.log("verificando...")
     console.log(DeckofCards());
 
-    
+    //DEFINICIÓN DE VARIABLES:
+
+    let thecards= [1,2,3,4,5,6,7,8,9,10,11,12,13];
+    let thesuits= ["♣","♠","♦","♥"];
+    let numberofcardsgen= [];
+
+    let inputforcards = document.querySelector("#numberofcards");
+    let buttondraw = document.querySelector("#draw");
+    let buttonsort = document.querySelector("#sort");
+    let randomcards = document.querySelector(".card");
+    let sortcards = document.querySelector(".stepbystepbubblesort");
+
+    //BOTONES:
+
+    buttondraw.addEventListener("click", () => {
+        let totalcards = inputforcards.value;
+        if (total > 0){
+            numberofcardsgen = [];
+            while (total > 0){
+                let tc = thecards[Math.floor(Math.random() * thecards.length)];
+                let ts = thesuits[Math.floor(Math.random() * thesuits.length)];
+                numberofcardsgen.push({tc, ts});
+                total--;
+            }
+            generateCard();
+        }
+    });
+
+    function generateCard (){
+        randomcards.innerHTML = "";
+        numberofcardsgen.forEach(card => {
+            randomcards.appendChild(drawCard(card));
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //FUNCIONES PARA MOSTRAR UNA CARTA AL AZAR (N° y PALO):
 
     document.querySelector('.number').innerHTML = (RandomCardNumber());
@@ -46,17 +96,6 @@ let RandomCardSuit = () => {
     return suits[suitsposition];
 
 };
-
-
-
-
-
-
-
-
-
-
-
 
 
 

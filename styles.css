@@ -3,38 +3,38 @@ body {
     background-color: rgba(0, 128, 0, 0.795);
 }
 
-
-.card{
-    background-color: rgba(255, 255, 255, 0.918);
-    width: 67px;
-    height: 100px;
-    border-radius: 3px;
-    border: 1px solid black;
-
+.card {
+    font-weight: bold;
+    font-size: 10px;
+    display: flex;
+    position: relative;
+    width: 100px;       
+    height: 130px;  
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;   
+    border-radius: 5px; 
+    margin-bottom: 8px; 
+    margin-right: 8px;
     
 }
 
-
-.t-suit{
-    padding-left: 2px;
-    font-size: 20px;
-    
-}
-
-
-.number{
-    text-align: center;
-    font-size: 25px;
-    font-weight: 100;
-    font-family: 'Times New Roman', Times, serif;
-    padding-bottom: 2px;
+.cardsdraw{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
 
 }
 
-.b-suit{
-    padding-left: 2px;
-    font-size: 20px;
-    transform:rotate(-180deg);
+#logsstepslist{
+    display: flex;
+    align-items: center;
     padding-top: 10px;
+    justify-content: center;
 
+}
+
+h5{
+    display: flex;
+    justify-content: center;
 }
