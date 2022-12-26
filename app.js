@@ -69,12 +69,12 @@ window.onload = () => {
 
      //Cartas al azar de baraja:
      const generateRandomCards = () => {
-        let pick = document.getElementById('numberofcards').value || 0
-        if (times > 10){
-            times = 10
+        let picks = document.getElementById('numberofcards').value || 0
+        if (picks > 10){
+            picks = 10
         }
         const pickarray = []
-        for (let cards = 1; cards <= pick; cards=cards+1){
+        for (let cards = 1; cards <= picks; cards=cards+1){
             const randomposition = generateRandomPosition(cards.length -1)
             pickarray.push(cards[randomposition])
             cards.splice(randomposition, 1)
@@ -174,11 +174,27 @@ window.onload = () => {
         }
      }
 
+     //Aplicar Eventos en Buttons:
+     let setcardnumb = generateCards()
+     let pickrandom = generateRandomCards()
+
+     document.getElementById('drawbutton').addEventListener('click', function (){
+        resetDraw()
+        resetSort()
+        setcardnumb = generateCards()
+        pickrandom = generateRandomCards()
+        drawCards(pickrandom)
+
+     })
+
+     document.getElementById('sortbutton').addEventListener('click', function(){
+        const showstepinrows = sortbubble([...pickrandom])
+        drawSortCards(showstepinrows)
+
+     })
 
 
-
-
-
+     drawCards(pickrandom)
 
 
 }
