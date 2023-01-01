@@ -87,7 +87,7 @@ window.onload = () => {
 
     //Mostrar N° de cartas seleccionadas aleatoriamente para sort:
     const renderCards = (arr) => {
-        const container = document.getElementById('deckRender')
+        const container = document.getElementById('genRandomCards')
         arr.forEach(card => {
             const cardDiv = `<div class="card">
             <div class="symbol top-left" style="color: ${card.color}">${card.symbol}</div>           
@@ -101,7 +101,7 @@ window.onload = () => {
 
     //Mostrar "Sort Steps" para N° de cartas seleccionadas aleatoriamente:
     const renderSortSteps = (rows) => {
-        const logs = document.getElementById('logsList')
+        const logs = document.getElementById('stepbysteprender')
 
         const card = (card, index) => {
             return `<div class="card">
@@ -132,21 +132,39 @@ window.onload = () => {
 
     //Aplicar Bubble Sort:
     const sortBubble = (arr) => {
+        let exchange = true;
+        let logs = []
+        do{
+            let x = [...arr]
+            logs.push(x)
+            exchange = false;
 
+            for (let i=0; i < arr.length; i=i+1){
+
+                if (arr[i+1] && arr[i].value > arr[i+1].value) {
+                    let aux = arr[i];
+                    arr[i] = arr[i+1];
+                    arr[i+1] = aux;
+
+                    exchange= true;
+                }
+            }
+        } while (exchange);
+        return logs;
     }
     
 
 
     //Resetear Draw y Sort:
-    const clearCards = () => {
-        const container = document.getElementById('deckRender')
+    const restartCards = () => {
+        const container = document.getElementById('genRandomCards')
         while (container.firstChild) {
             container.firstChild.remove()
         }
     }
 
-    const clearSorted = () => {
-        const container = document.getElementById('logsList')
+    const restartSorted = () => {
+        const container = document.getElementById('stepbysteprender')
         while (container.firstChild) {
             container.firstChild.remove()
         }
@@ -154,8 +172,8 @@ window.onload = () => {
 
 
     document.getElementById('drawCardsButton').addEventListener('click', function () {
-        clearCards()
-        clearSorted()
+        restartCards()
+        restartSorted()
         deck = generateDeckCards()
         cards = generateRandomCards()
         renderCards(cards)

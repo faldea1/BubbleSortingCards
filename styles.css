@@ -3,6 +3,22 @@ body {
     background-color: green;
 }
 
+
+h4 {
+    font-size:x-large;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+h3 {
+    color: black;
+
+
+
+}
+
 .card {
     font-weight: bold;
     font-size: 20px;
@@ -16,10 +32,11 @@ body {
     border-radius: 5px; 
     margin-bottom: 20px; 
     margin-right: 20px;
+    background-color: rgb(196, 194, 194);
     
 }
 
-.deck-render{
+.genRandomCards{
     padding-top: 30px;
     display: flex;
     flex-direction: row;
@@ -30,7 +47,7 @@ body {
 
 }
 
-#logsList {
+#stepbysteprender {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,14 +112,14 @@ input{
     border: 2px solid black;
 }
 
-h4 {
-    padding-right: 10px;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    font-weight: bolder;
-}
 
 .setting{
     padding: 10px;
+}
+
+#setRandomCardsNumb{
+    color:red;
+    border: 1px solid red;
+    
+    
 }
