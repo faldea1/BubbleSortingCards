@@ -26,18 +26,18 @@ window.onload = () => {
     ]
 
     //Draw Button:
-    var prevnumb = document.getElementById("rollBtn");
+    var prevnumb = document.getElementById("drawCardsButton");
     var newnumb = prevnumb.cloneNode(true);
     prevnumb.parentNode.replaceChild(newnumb, prevnumb);
 
 
 
     //Crear baraja de cartas:
-    const generateDeck = () => {
+    const generateDeckCards = () => {
         const deck = [];
         suits.forEach(suit => {
             for (let c = 2; c <= 14; c = c + 1) {
-                deck.push({ ...suit, value: c, renderValue: cardRenderValue(c) })
+                deck.push({ ...suit, value: c, renderValue: cardRenderValueJQKA(c) })
             }
         });
 
@@ -45,7 +45,7 @@ window.onload = () => {
     }
 
     //Numero de referencia para J,Q,K,A x suit:
-    const cardRenderValue = (value) => {
+    const cardRenderValueJQKA = (value) => {
         if (value === 11) {
             return 'J'
         }
@@ -64,7 +64,7 @@ window.onload = () => {
 
     //Cartas al azar de baraja:
     const generateRandomCards = () => {
-        let times = document.getElementById('inputRandom').value || 0
+        let times = document.getElementById('setRandomCardsNumb').value || 0
         if (times > 52) {
             times = 52
         }
@@ -75,7 +75,7 @@ window.onload = () => {
             deck.splice(randomIndex, 1)
         }
 
-        return arr
+        return arr;
 
     }
 
@@ -100,7 +100,7 @@ window.onload = () => {
     }
 
     //Mostrar "Sort Steps" para N° de cartas seleccionadas aleatoriamente:
-    const renderLogs = (rows) => {
+    const renderSortSteps = (rows) => {
         const logs = document.getElementById('logsList')
 
         const card = (card, index) => {
@@ -131,22 +131,8 @@ window.onload = () => {
 
 
     //Aplicar Bubble Sort:
-    const sortItems = (arr) => {
-        let min = 0;
-        const logs = []
-        while (min <= arr.length - 1) {
-            const asd = [...arr]
-            logs.push(asd)
-            for (let i = min + 1; i < arr.length; i = i + 1) {
-                if (arr[min].value && arr[min].value > arr[i].value) {
-                    let aux = arr[min];
-                    arr[min] = arr[i];
-                    arr[i] = aux;
-                }
-            }
-            min = min + 1;
-        }
-        return logs;
+    const sortBubble = (arr) => {
+
     }
     
 
@@ -167,23 +153,25 @@ window.onload = () => {
     }
 
 
-    document.getElementById('rollBtn').addEventListener('click', function () {
+    document.getElementById('drawCardsButton').addEventListener('click', function () {
         clearCards()
         clearSorted()
-        deck = generateDeck()
+        deck = generateDeckCards()
         cards = generateRandomCards()
         renderCards(cards)
 
     })
 
-    document.getElementById('sortBtn').addEventListener('click', function () {
-        const logRows = sortItems([...cards])
-        renderLogs(logRows)
+    document.getElementById('sortCardsButton').addEventListener('click', function () {
+        const logRows = sortBubble([...cards])
+        renderSortSteps(logRows)
 
     })
 
-    let deck = generateDeck()
+    let deck = generateDeckCards()
     let cards = generateRandomCards()
+
+    renderCards(cards)
 
 }
 
