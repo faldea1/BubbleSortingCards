@@ -15,37 +15,28 @@
 </head>
 
 <body>
-
-    <nav class="navbar bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand text-white">Original:</a>
-            <form class="d-flex" role="search">
-                <input type="number" id="numberofcards" name="numberofcards" placeholder="Cards" min="0" max="10">
-                <button id="drawbutton" class="btn btn-outline-success" type="submit">Draw</button>
-                <button id="sortbutton" class="btn btn-outline-success" type="submit">Sort</button>
-            </form>
+    <div class="actions">
+        <div>
+            <h4>Original:</h4>
         </div>
-    </nav>
-
-    <div class="container-fluid py-3">
-        <div class="row">
-            <div class="col">
-                <div id="drawcards"class="cardsdraw">
-                prueba
-                </div>
-            </div>
+        <div class="setting" style="margin-right: 10px;">
+            <input class="btn btn-white" type="number" id="inputRandom" placeholder="Cards" min='0' max="5">
+            <button id="rollBtn" class="btn btn-dark">Draw</button>
+            <button id="sortBtn" class="btn btn-dark">Sort</button>
         </div>
     </div>
-    <div class="mx-3"><h5>Bubble Sort Log:</h5></div>
-    <div id="logsstepslist" class="stepbystepbubblesort"></div>
-
-    
-    
-
-
-
-
-
+    <div class="titlefordeck">
+        <h3>Random Deck Cards:</h3>
+    </div>
+    <div id="deckRender" class="deck-render">
+    </div>
+    <div class="titleforsort">
+        <h3>Bubble Sort Log:</h3>
+    </div>
+    <div id="logsRender">
+        <div id="logsList">
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"

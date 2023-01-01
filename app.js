@@ -2,200 +2,188 @@
 window.onload = () => {
 
     //Variable para Array de obj. suits:
-    const suits= [
+    const suits = [
         {
             name: 'Clubs',
             color: 'black',
             symbol: '♣'
-
         },
         {
             name: 'Spades',
             color: 'black',
             symbol: '♠'
-
         },
         {
             name: 'Hearts',
             color: 'red',
             symbol: '♥'
-
         },
         {
             name: 'Diamonds',
             color: 'red',
             symbol: '♦'
-
-        },
-    ];
+        }
+    ]
 
     //Draw Button:
-    var prevnumb = document.getElementById('drawbutton');
+    var prevnumb = document.getElementById("rollBtn");
     var newnumb = prevnumb.cloneNode(true);
     prevnumb.parentNode.replaceChild(newnumb, prevnumb);
 
 
 
     //Crear baraja de cartas:
-    const generateCards = () => {
-        const cards = [];
-        suits.forEach(suit =>{
-            for (let i=1; i <= 13; i=i+1){
-                cards.push({...suit, value: i, renderValue: cardreferenceJQKA(i) })
+    const generateDeck = () => {
+        const deck = [];
+        suits.forEach(suit => {
+            for (let c = 2; c <= 14; c = c + 1) {
+                deck.push({ ...suit, value: c, renderValue: cardRenderValue(c) })
             }
         });
 
-        return cards;
-
+        return deck;
     }
 
-     //Numero de referencia para J,Q,K,A x suit:
-     const cardreferenceJQKA = (value) =>{
-        if (value === 11){
+    //Numero de referencia para J,Q,K,A x suit:
+    const cardRenderValue = (value) => {
+        if (value === 11) {
             return 'J'
         }
-        if (value === 12){
+        if (value === 12) {
             return 'Q'
         }
-        if (value === 13){
+        if (value === 13) {
             return 'K'
         }
-        if (value === 1){
+        if (value === 14) {
             return 'A'
         }
 
         return `${value}`
-     }
+    }
 
-     //Cartas al azar de baraja:
-     const generateRandomCards = () => {
-        let picks = document.getElementById('numberofcards').value || 0
-        if (picks > 10){
-            picks = 10
+    //Cartas al azar de baraja:
+    const generateRandomCards = () => {
+        let times = document.getElementById('inputRandom').value || 0
+        if (times > 52) {
+            times = 52
         }
-        const pickarray = []
-        for (let cards = 1; cards <= picks; cards=cards+1){
-            const randomposition = generateRandomPosition(cards.length -1)
-            pickarray.push(cards[randomposition])
-            cards.splice(randomposition, 1)
+        const arr = []
+        for (let cards = 1; cards <= times; cards=cards+1) {
+            const randomIndex = generateRandomIndex(deck.length - 1)
+            arr.push(deck[randomIndex])
+            deck.splice(randomIndex, 1)
         }
 
-        return pickarray;
+        return arr
 
-     }
+    }
 
-     const generateRandomPosition = (maxvalue) =>{
-        minvalue = 0
-        maxvalue = Math.floor(maxvalue);
-        return Math.floor(Math.random() * (maxvalue - minvalue) + minvalue)
-     }
+    const generateRandomIndex = (max) => {
+        min = 0
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min)
+    }
 
-     //Mostrar N° de cartas seleccionadas aleatoriamente para sort:
-     const drawCards = (pickarray) =>{
-        const cardsboard = document.getElementById('drawcards')
-        pickarray.forEach(card => {
-            const thecard = `<div class="card">
-            <div class="symbol top-left" style="color: ${card.color}">${card.symbol}</div>
-            <div class="thevalue" style"color: ${card.color}">${card.renderValue}</div>
-            <div class="symbol bottom-right" style="color: ${card.color}">${card.symbol}</div>          
+    //Mostrar N° de cartas seleccionadas aleatoriamente para sort:
+    const renderCards = (arr) => {
+        const container = document.getElementById('deckRender')
+        arr.forEach(card => {
+            const cardDiv = `<div class="card">
+            <div class="symbol top-left" style="color: ${card.color}">${card.symbol}</div>           
+            <div class="symbol bottom-right" style="color: ${card.color}">${card.symbol}</div>  
+            <div class="card-render-value" style="color: ${card.color}">${card.renderValue}</div>        
         </div>`
-            cardsboard.insertAdjacentHTML(thecard);
+            container.insertAdjacentHTML("beforeend", cardDiv);
         });
 
-     }
+    }
 
-     //Mostrar "Sort Steps" para N° de cartas seleccionadas aleatoriamente:
-     const drawSortCards = (rows) => {
-        const sortcards = document.getElementById('logsstepslist')
-        const render = []
+    //Mostrar "Sort Steps" para N° de cartas seleccionadas aleatoriamente:
+    const renderLogs = (rows) => {
+        const logs = document.getElementById('logsList')
 
         const card = (card, index) => {
             return `<div class="card">
-            <div class="symbol top-left" style="color: ${card.color}">${card.symbol}</div>
-            <div class="render-thevalue" style"color: ${card.color}">${card.renderValue}</div>
-            <div class="symbol bottom-right" style="color: ${card.color}">${card.symbol}</div>          
+            <div class="symbol top-left" style="color: ${card.color}" >${card.symbol}</div>
+            <div class="render-thevalue" style="color: ${card.color}" >${card.renderValue}</div>
+            <div class="symbol bottom-right" style="color: ${card.color}" >${card.symbol}</div>          
         </div>`
 
         }
         rows.forEach((row, index) => {
-            let rowStep = document.createElement('div');
-            const h4 = document.createElement('h4');
-            h4.innerHTML = `${index}.`
-            h4.style.color = 'red'
-            h4.style.padding = '1px'
-            rowStep.appendChild(h4)
-            rowStep.classList.add('rowStep')
+            let logRow = document.createElement('div');
+            const header = document.createElement('h5');
+            header.innerHTML = `${index}.`
+            header.style.color = 'white'
+            header.style.padding = '10px'
+            logRow.appendChild(header)
+            logRow.classList.add('logRow')
 
             row.forEach(c => {
-                const csort = card(c)
-                rowStep.insertAdjacentHTML(csort);
+                const appendCard = card(c)
+                logRow.insertAdjacentHTML("beforeend", appendCard);
             })
 
-            sortcards.appendChild(rowStep)           
+            logs.appendChild(logRow)
         })
-     }
+    }
 
-     //Aplicar Bubble Sort:
-     const sortbubble = (array) => {
-        let change = true;
-        let logs = []
-        do {
-            let cbarray = [...array]
-                logs.push(cbarray)
-            change = false;
 
-            for (let b= 0; b< array.length; j=j+1){
-
-                if (array[j+1] && array[j].value > array[j+1].value) {
-
-                    let temp = array[b];
-                    array[b]=array[b+1];
-                    array[b+1] = temp;
-
-                    change=true;
+    //Aplicar Bubble Sort:
+    const sortItems = (arr) => {
+        let min = 0;
+        const logs = []
+        while (min <= arr.length - 1) {
+            const asd = [...arr]
+            logs.push(asd)
+            for (let i = min + 1; i < arr.length; i = i + 1) {
+                if (arr[min].value && arr[min].value > arr[i].value) {
+                    let aux = arr[min];
+                    arr[min] = arr[i];
+                    arr[i] = aux;
                 }
             }
-        } while (change);
+            min = min + 1;
+        }
         return logs;
-     }
+    }
+    
 
-     //Resetear Draw y Sort:
-     const resetDraw = () =>{
-        const container = document.getElementById('drawcards')
-        while (container.firstChild){
+
+    //Resetear Draw y Sort:
+    const clearCards = () => {
+        const container = document.getElementById('deckRender')
+        while (container.firstChild) {
             container.firstChild.remove()
         }
-     }
+    }
 
-     const resetSort = () =>{
-        const container2 =document.getElementById('logsstepslist')
-        while (container2.firstChild){
-            container2.firstChild.remove()
+    const clearSorted = () => {
+        const container = document.getElementById('logsList')
+        while (container.firstChild) {
+            container.firstChild.remove()
         }
-     }
-
-     //Aplicar Eventos en Buttons:
-     let setcardnumb = generateCards()
-     let pickrandom = generateRandomCards()
-
-     document.getElementById('drawbutton').addEventListener('click', function (){
-        resetDraw()
-        resetSort()
-        setcardnumb = generateCards()
-        pickrandom = generateRandomCards()
-        drawCards(pickrandom)
-
-     })
-
-     document.getElementById('sortbutton').addEventListener('click', function(){
-        const showstepinrows = sortbubble([...pickrandom])
-        drawSortCards(showstepinrows)
-
-     })
+    }
 
 
-     drawCards(pickrandom)
+    document.getElementById('rollBtn').addEventListener('click', function () {
+        clearCards()
+        clearSorted()
+        deck = generateDeck()
+        cards = generateRandomCards()
+        renderCards(cards)
 
+    })
+
+    document.getElementById('sortBtn').addEventListener('click', function () {
+        const logRows = sortItems([...cards])
+        renderLogs(logRows)
+
+    })
+
+    let deck = generateDeck()
+    let cards = generateRandomCards()
 
 }
 
